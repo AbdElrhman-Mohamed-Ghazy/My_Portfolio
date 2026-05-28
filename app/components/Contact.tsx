@@ -197,7 +197,7 @@ export default function Contact() {
                 name="message"
                 rows={5}
                 required
-                placeholder="Tell me about your project (sent to abdelrhmanmohamedghazy2000@gmail.com)"
+                placeholder="Tell me about your project"
                 className="mt-2 w-full rounded-xl border border-zinc-800/50 bg-zinc-900/60 px-4 py-3 text-sm text-zinc-100 outline-none transition focus:border-indigo-400/70 focus:ring-1 focus:ring-indigo-400/60"
               />
             </div>

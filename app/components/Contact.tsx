@@ -43,7 +43,6 @@ export default function Contact() {
     setStatusMessage("");
     const form = event.currentTarget;
     const formData = new FormData(form);
-    formData.append("access_key", process.env.NEXT_PUBLIC_W3F_KEY ?? "");
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -158,31 +157,37 @@ export default function Contact() {
           >
             <form
               onSubmit={handleSubmit}
+              autoComplete="off"
               className="glass-card space-y-5 !rounded-3xl p-6 sm:p-8"
             >
               <h3 className="font-display text-xl font-bold text-white">
                 Contact with me
               </h3>
               <input
+                type="hidden"
+                name="access_key"
+                value={process.env.NEXT_PUBLIC_W3F_KEY}
+              />
+              <input
                 type="text"
                 name="name"
                 placeholder="Your Name"
                 required
-                className="w-full rounded-2xl border border-white/12 bg-[#0a0e1a]/80 px-5 py-3.5 text-sm text-white placeholder-slate-500 outline-none transition-colors focus:border-indigo-300/60"
+                className="w-full rounded-2xl border border-white/12 bg-[#0a0e1a]/80 px-5 py-3.5 text-sm text-white placeholder-slate-500 outline-none"
               />
               <input
                 type="email"
                 name="email"
                 placeholder="Your Email"
                 required
-                className="w-full rounded-2xl border border-white/12 bg-[#0a0e1a]/80 px-5 py-3.5 text-sm text-white placeholder-slate-500 outline-none transition-colors focus:border-indigo-300/60"
+                className="w-full rounded-2xl border border-white/12 bg-[#0a0e1a]/80 px-5 py-3.5 text-sm text-white placeholder-slate-500 outline-none"
               />
               <textarea
                 name="message"
                 rows={5}
                 required
                 placeholder="What do you want to build?"
-                className="w-full resize-none rounded-2xl border border-white/12 bg-[#0a0e1a]/80 px-5 py-3.5 text-sm text-white placeholder-slate-500 outline-none transition-colors focus:border-indigo-300/60"
+                className="w-full resize-none rounded-2xl border border-white/12 bg-[#0a0e1a]/80 px-5 py-3.5 text-sm text-white placeholder-slate-500 outline-none"
               />
               <button
                 type="submit"

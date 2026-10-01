@@ -47,6 +47,7 @@ function BrandMark({ skill }: { skill: Skill }) {
           alt={`${skill.name} logo`}
           title={skill.name}
           loading="lazy"
+          decoding="async"
           width={24}
           height={24}
           className="h-full w-full object-contain"

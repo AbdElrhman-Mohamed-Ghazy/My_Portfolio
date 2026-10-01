@@ -126,7 +126,7 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="relative mx-auto w-full max-w-md lg:max-w-none"
           >
-            <div className="absolute -inset-6 rounded-[2.5rem] bg-[conic-gradient(from_180deg,rgba(99,102,241,0.35),rgba(217,70,239,0.25),rgba(244,63,94,0.3),rgba(99,102,241,0.35))] blur-2xl" />
+            <div className="absolute -inset-6 transform-gpu rounded-[2.5rem] bg-[conic-gradient(from_180deg,rgba(99,102,241,0.35),rgba(217,70,239,0.25),rgba(244,63,94,0.3),rgba(99,102,241,0.35))] blur-2xl" />
             <div className="animate-float-slow relative rounded-[2rem] border border-white/15 bg-white/[0.05] p-3 shadow-[0_40px_100px_-30px_rgba(99,102,241,0.6)] backdrop-blur-xl">
               <Image
                 src="/1758737080428.jpeg"

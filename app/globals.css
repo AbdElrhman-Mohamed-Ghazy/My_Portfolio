@@ -97,7 +97,7 @@ body {
   color: #fff;
   background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
   box-shadow: 0 12px 35px -10px rgba(139, 92, 246, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-  transition: all 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, filter 0.25s ease;
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
@@ -122,7 +122,7 @@ body {
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.16);
   backdrop-filter: blur(10px);
-  transition: all 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
 }
 
 .btn-dark:hover,
@@ -215,11 +215,6 @@ body {
   50% { transform: translateY(-12px); }
 }
 
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
 @keyframes shine {
   from { background-position: 0% 50%; }
   to { background-position: 200% 50%; }
@@ -229,14 +224,6 @@ body {
   animation: float-slow 6s ease-in-out infinite;
 }
 
-.animate-marquee {
-  animation: marquee 30s linear infinite;
-}
-
-.mask-fade-x {
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-}
-
 .text-shine {
   background: linear-gradient(110deg, #fff 20%, #a5b4fc 40%, #f0abfc 55%, #fff 75%);
   background-size: 200% auto;
@@ -244,4 +231,14 @@ body {
   background-clip: text;
   color: transparent;
   animation: shine 6s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-float-slow,
+  .text-shine {
+    animation: none;
+  }
 }

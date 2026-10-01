@@ -7,7 +7,7 @@ import "./globals.css";
 const display = Outfit({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "700", "800"],
 });
 
 const body = Plus_Jakarta_Sans({
@@ -19,7 +19,7 @@ const body = Plus_Jakarta_Sans({
 const script = Dancing_Script({
   variable: "--font-script",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -65,9 +65,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${display.variable} ${body.variable} ${script.variable} h-full scroll-smooth antialiased`}
+      suppressHydrationWarning
+      className={`${display.variable} ${body.variable} ${script.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-black font-body text-white">
+      <head>
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+      </head>
+      <body suppressHydrationWarning className="flex min-h-full flex-col bg-black font-body text-white">
         {children}
         <Analytics />
         <SpeedInsights />

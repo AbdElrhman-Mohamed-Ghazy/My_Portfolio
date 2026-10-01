@@ -5,7 +5,7 @@ import SectionHeading from "./SectionHeading";
 
 /**
  * Project images live in /public/projects/:
- * ecommerce.jpg, manasa.jpg, chat.jpg, dvld.jpg
+ * ecommerce.webp, manasa.webp, chat.webp, dvld.webp
  */
 type Project = {
   title: string;
@@ -25,7 +25,7 @@ const projects: Project[] = [
     category: "Full Stack • Flagship",
     description:
       "Production e-commerce platform: secure ASP.NET Core API with Clean Architecture + CQRS, JWT + RBAC, wired to a responsive Angular storefront.",
-    image: "/projects/ecommerce.jpg",
+    image: "/projects/ecommerce.webp",
     tech: ["ASP.NET Core", "Angular", "SQL Server", "JWT", "Clean Architecture"],
     results: ["Live in production", "RBAC + refresh tokens"],
     front: true,
@@ -48,7 +48,7 @@ const projects: Project[] = [
     category: "Full Stack • Flagship",
     description:
       "Modern learning platform (Angular frontend live now, ASP.NET Core API in progress). Courses, tracks, and a clean student experience — backend with Identity + JWT coming next.",
-    image: "/projects/manasa.jpg",
+    image: "/projects/manasa.webp",
     tech: ["Angular", "TypeScript", "Bootstrap", "RxJS", "ASP.NET Core (soon)"],
     results: ["Frontend live now", ".NET API under construction", "Mobile-first UI"],
     front: true,
@@ -66,7 +66,7 @@ const projects: Project[] = [
     category: "Backend • SignalR",
     description:
       "Real-time chat API using ASP.NET Core and SignalR, supporting multi-user messaging with automatic reconnection and live online user tracking.",
-    image: "/projects/chat.jpg",
+    image: "/projects/chat.webp",
     tech: ["ASP.NET Core", "SignalR", "C#", "ConcurrentDictionary", "JWT"],
     results: ["Multi-user messaging", "Auto-reconnect", "Thread-safe online tracking"],
     front: false,
@@ -84,7 +84,7 @@ const projects: Project[] = [
     category: "Desktop • SQL Server",
     description:
       "End-to-end driving-license operations suite with reliable 3-tier data handling, test scheduling, and issuance workflows.",
-    image: "/projects/dvld.jpg",
+    image: "/projects/dvld.webp",
     tech: ["C#", "Windows Forms", "SQL Server", "3-Tier", "ADO.NET"],
     results: ["Full CRUD flows", "Real office workflow", "Demo video live"],
     front: false,
@@ -104,7 +104,7 @@ const projects: Project[] = [
   },
 ];
 
-function Cover({ p, eager }: { p: Project; eager?: boolean }) {
+function Cover({ p }: { p: Project }) {
   if (p.image) {
     return (
       <div className="relative aspect-[16/10] overflow-hidden bg-[#0c1122]">
@@ -114,7 +114,7 @@ function Cover({ p, eager }: { p: Project; eager?: boolean }) {
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 560px"
           className="object-contain"
-          {...(eager ? { priority: true } : { loading: "lazy" as const })}
+          loading="lazy"
         />
       </div>
     );
@@ -149,13 +149,13 @@ export default function Projects() {
         />
 
         <div className="grid gap-7 md:grid-cols-2">
-          {projects.map((p, i) => (
+          {projects.map((p) => (
             <article
               key={p.title}
               className="glass-card group flex h-full flex-col overflow-hidden !rounded-3xl"
             >
               <div className="relative">
-                <Cover p={p} eager={i === 0} />
+                <Cover p={p} />
                 <div className="absolute left-4 top-4 flex max-w-[calc(100%-2rem)] flex-wrap gap-2">
                   <span className="rounded-full border border-white/15 bg-black/55 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white backdrop-blur-md">
                     {p.category}

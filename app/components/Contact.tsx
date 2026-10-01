@@ -3,14 +3,14 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import {
-  GitBranch,
-  Link,
   Mail,
   MapPin,
   MessageCircle,
   Phone,
 } from "lucide-react";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import AnimatedSection from "./AnimatedSection";
+import SectionHeading from "./SectionHeading";
 
 const contactItems = [
   {
@@ -27,212 +27,189 @@ const contactItems = [
   },
   {
     label: "Location",
-    value: "Tanta, Egypt",
+    value: "Tanta, Egypt • Remote",
     href: undefined,
     icon: MapPin,
   },
 ];
 
 export default function Contact() {
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">(
-    "idle"
-  );
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [statusMessage, setStatusMessage] = useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setStatus("sending");
     setStatusMessage("");
-
     const form = event.currentTarget;
     const formData = new FormData(form);
-
+    formData.append("access_key", process.env.NEXT_PUBLIC_W3F_KEY ?? "");
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: formData,
       });
       const result = await response.json();
-
       if (response.ok && result.success) {
         setStatus("success");
         setStatusMessage("Message sent successfully. I'll get back to you soon.");
         form.reset();
       } else {
         setStatus("error");
-        setStatusMessage(
-          result?.message ??
-            "Something went wrong. Please try again in a moment."
-        );
+        setStatusMessage(result?.message ?? "Something went wrong. Please try again.");
       }
-    } catch (error) {
+    } catch {
       setStatus("error");
-      setStatusMessage("Something went wrong. Please try again in a moment.");
+      setStatusMessage("Something went wrong. Please try again.");
     }
   };
 
   return (
     <AnimatedSection
       id="contact"
-      className="w-full border-t border-zinc-800/60 px-6 py-20 sm:px-10 lg:px-16"
+      className="w-full border-t border-white/8 bg-white/[0.02] px-4 py-16 sm:px-6 md:py-20"
     >
-      <div className="mx-auto w-full max-w-6xl space-y-10">
-        <div className="space-y-4">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-zinc-400">
-            Contact
-          </p>
-          <h2 className="text-3xl font-semibold tracking-tight text-zinc-100 sm:text-4xl">
-            Let&apos;s build something secure and scalable.
-          </h2>
-        </div>
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="space-y-6 rounded-2xl border border-zinc-800/50 bg-zinc-900/70 p-6 shadow-[0_0_28px_rgba(99,102,241,0.08)]">
-            <div className="space-y-4">
+      <div className="mx-auto w-full max-w-6xl">
+        <SectionHeading
+          eyebrow="Get in touch"
+          title="Have an idea? Let's make it profitable"
+          description="Tell me about your project — MVP, dashboard, store, or full platform. I reply within 24 hours."
+        />
+
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="glass-card flex flex-col gap-6 p-6 sm:p-8 lg:col-span-5"
+          >
+            <div className="rounded-2xl border border-emerald-300/20 bg-emerald-400/[0.07] p-4 text-sm leading-6 text-emerald-100">
+              <span className="font-bold">Average reply time: under 24h.</span>
+              <br />
+              Prefer chat? WhatsApp below is fastest.
+            </div>
+            <div className="space-y-5">
               {contactItems.map((item) => {
                 const Icon = item.icon;
                 return (
                   <div key={item.label} className="flex items-start gap-3">
-                    <div className="mt-1 rounded-full border border-zinc-800/60 bg-zinc-900/80 p-2 text-zinc-200">
+                    <div className="mt-1 rounded-2xl border border-white/12 bg-white/[0.06] p-2.5 text-indigo-100">
                       <Icon size={16} />
                     </div>
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">
+                    <div className="min-w-0">
+                      <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-slate-400">
                         {item.label}
                       </p>
                       {item.href ? (
                         <a
                           href={item.href}
-                          className="mt-1 block text-sm text-zinc-200 transition-colors hover:text-indigo-100"
+                          className="mt-1 block truncate text-sm font-semibold text-white transition-colors hover:text-indigo-200"
                         >
                           {item.value}
                         </a>
                       ) : (
-                        <p className="mt-1 text-sm text-zinc-200">
-                          {item.value}
-                        </p>
+                        <p className="mt-1 text-sm font-semibold text-white">{item.value}</p>
                       )}
                     </div>
                   </div>
                 );
               })}
             </div>
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+
+            <div className="flex flex-wrap items-center gap-3">
               <a
                 href="https://github.com/AbdElrhman-Mohamed-Ghazy"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-zinc-700/70 bg-zinc-900/70 px-4 py-2 text-sm text-zinc-200 transition-all hover:border-indigo-400/60 hover:text-indigo-100 hover:shadow-[0_0_24px_rgba(99,102,241,0.25)]"
+                className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.06] px-4 py-2 text-sm font-semibold text-slate-100 transition-all hover:border-indigo-300/40 hover:text-white"
               >
-                <GitBranch size={16} />
+                <FaGithub size={16} />
                 GitHub
               </a>
               <a
                 href="https://www.linkedin.com/in/abdelrhman-aboelmagd-1b6b1a345/"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-zinc-700/70 bg-zinc-900/70 px-4 py-2 text-sm text-zinc-200 transition-all hover:border-indigo-400/60 hover:text-indigo-100 hover:shadow-[0_0_24px_rgba(99,102,241,0.25)]"
+                className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.06] px-4 py-2 text-sm font-semibold text-slate-100 transition-all hover:border-indigo-300/40 hover:text-white"
               >
-                <Link size={16} />
+                <FaLinkedin size={16} />
                 LinkedIn
               </a>
             </div>
+
             <a
               href="https://wa.me/201019669374?text=Hi%20Abdelrhman,%20I%20saw%20your%20portfolio..."
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-600 px-5 py-2 text-sm font-semibold text-white transition-all hover:scale-105 hover:bg-emerald-500"
+              className="group mt-2 inline-flex items-center justify-center gap-3 rounded-2xl border border-emerald-500/40 bg-emerald-500/10 px-5 py-3.5 font-display text-base text-zinc-200 shadow-xl transition-all hover:scale-[1.02] hover:bg-emerald-500/20 hover:text-white"
             >
-              <MessageCircle size={16} />
-              WhatsApp
+              <span>Contact on WhatsApp</span>
+              <MessageCircle size={20} className="text-emerald-400 transition-transform group-hover:scale-110" />
             </a>
-          </div>
-          <form
-            onSubmit={handleSubmit}
-            className="space-y-4 rounded-2xl border border-zinc-800/50 bg-zinc-900/70 p-6 shadow-[0_0_28px_rgba(99,102,241,0.08)]"
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="lg:col-span-7"
           >
-            <input
-              type="hidden"
-              name="access_key"
-              value="530c1c3a-612a-4165-a805-c2bbbfced192"
-            />
-            <div>
-              <label
-                htmlFor="name"
-                className="text-xs uppercase tracking-[0.3em] text-zinc-500"
-              >
-                Your Name
-              </label>
+            <form
+              onSubmit={handleSubmit}
+              className="glass-card space-y-5 !rounded-3xl p-6 sm:p-8"
+            >
+              <h3 className="font-display text-xl font-bold text-white">
+                Contact with me
+              </h3>
               <input
-                id="name"
-                name="name"
                 type="text"
+                name="name"
+                placeholder="Your Name"
                 required
-                className="mt-2 w-full rounded-xl border border-zinc-800/50 bg-zinc-900/60 px-4 py-3 text-sm text-zinc-100 outline-none transition focus:border-indigo-400/70 focus:ring-1 focus:ring-indigo-400/60"
+                className="w-full rounded-2xl border border-white/12 bg-[#0a0e1a]/80 px-5 py-3.5 text-sm text-white placeholder-slate-500 outline-none transition-colors focus:border-indigo-300/60"
               />
-            </div>
-            <div>
-              <label
-                htmlFor="email"
-                className="text-xs uppercase tracking-[0.3em] text-zinc-500"
-              >
-                Your Email
-              </label>
               <input
-                id="email"
-                name="email"
                 type="email"
+                name="email"
+                placeholder="Your Email"
                 required
-                className="mt-2 w-full rounded-xl border border-zinc-800/50 bg-zinc-900/60 px-4 py-3 text-sm text-zinc-100 outline-none transition focus:border-indigo-400/70 focus:ring-1 focus:ring-indigo-400/60"
+                className="w-full rounded-2xl border border-white/12 bg-[#0a0e1a]/80 px-5 py-3.5 text-sm text-white placeholder-slate-500 outline-none transition-colors focus:border-indigo-300/60"
               />
-            </div>
-            <div>
-              <label
-                htmlFor="message"
-                className="text-xs uppercase tracking-[0.3em] text-zinc-500"
-              >
-                Message
-              </label>
               <textarea
-                id="message"
                 name="message"
                 rows={5}
                 required
-                placeholder="Tell me about your project"
-                className="mt-2 w-full rounded-xl border border-zinc-800/50 bg-zinc-900/60 px-4 py-3 text-sm text-zinc-100 outline-none transition focus:border-indigo-400/70 focus:ring-1 focus:ring-indigo-400/60"
+                placeholder="What do you want to build?"
+                className="w-full resize-none rounded-2xl border border-white/12 bg-[#0a0e1a]/80 px-5 py-3.5 text-sm text-white placeholder-slate-500 outline-none transition-colors focus:border-indigo-300/60"
               />
-            </div>
-            <button
-              type="submit"
-              disabled={status === "sending"}
-              className="inline-flex h-12 w-full items-center justify-center rounded-full border border-indigo-400/40 bg-gradient-to-r from-indigo-500/90 via-indigo-400/90 to-purple-500/90 px-6 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_28px_rgba(99,102,241,0.45)] disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {status === "sending" ? "Sending..." : "Send Message"}
-            </button>
-            <AnimatePresence mode="wait">
-              {statusMessage ? (
-                <motion.p
-                  key={status}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.3 }}
-                  aria-live="polite"
-                  className={`text-center text-xs ${
-                    status === "success"
-                      ? "text-emerald-400"
-                      : "text-rose-400"
-                  }`}
-                >
-                  {statusMessage}
-                </motion.p>
-              ) : null}
-            </AnimatePresence>
-            <p className="text-center text-xs text-zinc-500">
-              This form sends an email directly to
-              {" "}
-              abdelrhmanmohamedghazy2000@gmail.com
-            </p>
-          </form>
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="btn-primary w-full disabled:opacity-50"
+              >
+                {status === "sending" ? "Sending..." : "Send "}
+              </button>
+              <AnimatePresence mode="wait">
+                {statusMessage ? (
+                  <motion.p
+                    key={status}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.3 }}
+                    aria-live="polite"
+                    className={`text-center text-xs ${
+                      status === "success" ? "text-emerald-400" : "text-rose-400"
+                    }`}
+                  >
+                    {statusMessage}
+                  </motion.p>
+                ) : null}
+              </AnimatePresence>
+            </form>
+          </motion.div>
         </div>
       </div>
     </AnimatedSection>

@@ -1,24 +1,32 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Dancing_Script, Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const display = Outfit({
+  variable: "--font-display",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const body = Plus_Jakarta_Sans({
+  variable: "--font-body",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const script = Dancing_Script({
+  variable: "--font-script",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Abdelrhman Aboelmagd | .NET Backend Developer",
+  title: "Abdelrhman Aboelmagd | Full Stack .NET & Angular",
   description:
-    "Professional portfolio of Abdelrhman Mohamed Ghazy Aboelmagd, specializing in scalable, secure backend systems, and Clean Architecture.",
-  keywords: ["Abdelrhman Mohamed Ghazy Aboelmagd","Abdelrhman Aboelmagd","Backend Developer", ".NET Developer", "C# Developer", "Portfolio", "Software Engineer"],
+    "Portfolio of Abdelrhman Mohamed Ghazy Aboelmagd, Full Stack developer building scalable ASP.NET Core APIs and modern Angular experiences with Clean Architecture.",
+  keywords: ["Abdelrhman Mohamed Ghazy Aboelmagd", "Abdelrhman Aboelmagd", "Full Stack Developer", ".NET Developer", "Angular Developer", "C# Developer", "TypeScript", "Portfolio"],
   authors: [{ name: "Abdelrhman Mohamed Ghazy Aboelmagd" }],
 
   robots: {
@@ -26,10 +34,9 @@ export const metadata: Metadata = {
     follow: true,
   },
 
-  // 2. للسوشيال ميديا (لينكد إن، واتساب، فيسبوك) - الـ Open Graph
   openGraph: {
-    title: "Abdelrhman Aboelmagd | .NET Backend Developer",
-    description: "Professional portfolio of Abdelrhman Mohamed Ghazy Aboelmagd, specializing in scalable, secure backend systems.",
+    title: "Abdelrhman Aboelmagd | Full Stack .NET & Angular",
+    description: "Building scalable APIs with ASP.NET Core and modern frontends with Angular.",
     url: "https://abdelrhman-aboelmagd.vercel.app",
     siteName: "Abdelrhman Aboelmagd Portfolio",
     locale: "en_US",
@@ -43,12 +50,11 @@ export const metadata: Metadata = {
         type: "image/svg+xml",
       },
     ],
-    // الحل البرمجي للموبايلات والآيفون: بنخليه يقرأ نفس الأيقونة الـ SVG كـ Apple Touch Icon
     apple: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'><rect width='64' height='64' rx='14' fill='%23090b10'/><path d='M25 20L15 32L25 44' stroke='%23f4f4f5' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/><path d='M39 20L49 32L39 44' stroke='%23f4f4f5' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/></svg>",
   },
-  // كود التحقق بتاع محرك بحث جوجل (Search Console)
+  // Google Search Console verification
   verification: {
-    google: "JI68ujd54ig8Tyd9rsXpDxScwHEVvC0eQFqZ1_YZQw4", 
+    google: "JI68ujd54ig8Tyd9rsXpDxScwHEVvC0eQFqZ1_YZQw4",
   },
 };
 export default function RootLayout({
@@ -59,9 +65,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${display.variable} ${body.variable} ${script.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="flex min-h-full flex-col bg-black font-body text-white">
         {children}
         <Analytics />
         <SpeedInsights />
